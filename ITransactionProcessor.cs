@@ -1,0 +1,10 @@
+namespace FinanceSystem
+{
+    /// <summary>
+    /// Interface defining payment behavior for transaction processing
+    /// </summary>
+    public interface ITransactionProcessor
+    {
+        void Process(Transaction transaction);
+    }
+}
