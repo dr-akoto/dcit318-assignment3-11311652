@@ -182,7 +182,10 @@ namespace FinanceSystem
                 Console.Write("Enter Patient ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int id))
                 {
-                    Console.WriteLine("Invalid ID. Please enter a valid number.\n");
+                    Console.WriteLine("Invalid ID. Please enter a valid number.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -190,7 +193,10 @@ namespace FinanceSystem
                 var existingPatient = _patientRepo.GetById(p => p.Id == id);
                 if (existingPatient != null)
                 {
-                    Console.WriteLine($"Patient with ID {id} already exists.\n");
+                    Console.WriteLine($"Patient with ID {id} already exists.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -198,14 +204,20 @@ namespace FinanceSystem
                 string name = Console.ReadLine()?.Trim() ?? "";
                 if (string.IsNullOrEmpty(name))
                 {
-                    Console.WriteLine("Name cannot be empty.\n");
+                    Console.WriteLine("Name cannot be empty.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
                 Console.Write("Enter Patient Age: ");
                 if (!int.TryParse(Console.ReadLine(), out int age) || age < 0 || age > 150)
                 {
-                    Console.WriteLine("Invalid age. Please enter a valid age between 0 and 150.\n");
+                    Console.WriteLine("Invalid age. Please enter a valid age between 0 and 150.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -213,18 +225,27 @@ namespace FinanceSystem
                 string gender = Console.ReadLine()?.Trim() ?? "";
                 if (string.IsNullOrEmpty(gender))
                 {
-                    Console.WriteLine("Gender cannot be empty.\n");
+                    Console.WriteLine("Gender cannot be empty.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
                 var newPatient = new Patient(id, name, age, gender);
                 _patientRepo.Add(newPatient);
 
-                Console.WriteLine($"Successfully added patient: {newPatient}\n");
+                Console.WriteLine($"Successfully added patient: {newPatient}");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding patient: {ex.Message}\n");
+                Console.WriteLine($"Error adding patient: {ex.Message}");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
             }
         }
 
@@ -240,7 +261,10 @@ namespace FinanceSystem
                 Console.Write("Enter Prescription ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int id))
                 {
-                    Console.WriteLine("Invalid ID. Please enter a valid number.\n");
+                    Console.WriteLine("Invalid ID. Please enter a valid number.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -248,14 +272,20 @@ namespace FinanceSystem
                 var existingPrescription = _prescriptionRepo.GetById(p => p.Id == id);
                 if (existingPrescription != null)
                 {
-                    Console.WriteLine($"Prescription with ID {id} already exists.\n");
+                    Console.WriteLine($"Prescription with ID {id} already exists.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
                 Console.Write("Enter Patient ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int patientId))
                 {
-                    Console.WriteLine("Invalid Patient ID. Please enter a valid number.\n");
+                    Console.WriteLine("Invalid Patient ID. Please enter a valid number.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -263,7 +293,10 @@ namespace FinanceSystem
                 var patient = _patientRepo.GetById(p => p.Id == patientId);
                 if (patient == null)
                 {
-                    Console.WriteLine($"Patient with ID {patientId} not found. Please add the patient first.\n");
+                    Console.WriteLine($"Patient with ID {patientId} not found. Please add the patient first.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -271,7 +304,10 @@ namespace FinanceSystem
                 string medicationName = Console.ReadLine()?.Trim() ?? "";
                 if (string.IsNullOrEmpty(medicationName))
                 {
-                    Console.WriteLine("Medication name cannot be empty.\n");
+                    Console.WriteLine("Medication name cannot be empty.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -285,7 +321,10 @@ namespace FinanceSystem
                 }
                 else if (!DateTime.TryParse(dateInput, out dateIssued))
                 {
-                    Console.WriteLine("Invalid date format. Please use YYYY-MM-DD format.\n");
+                    Console.WriteLine("Invalid date format. Please use YYYY-MM-DD format.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     return;
                 }
 
@@ -295,11 +334,17 @@ namespace FinanceSystem
                 // Update prescription map
                 BuildPrescriptionMap();
 
-                Console.WriteLine($"Successfully added prescription: {newPrescription}\n");
+                Console.WriteLine($"Successfully added prescription: {newPrescription}");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding prescription: {ex.Message}\n");
+                Console.WriteLine($"Error adding prescription: {ex.Message}");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
             }
         }
 
@@ -314,7 +359,10 @@ namespace FinanceSystem
 
             if (patients.Count == 0)
             {
-                Console.WriteLine("No patients found in the system.\n");
+                Console.WriteLine("No patients found in the system.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
@@ -323,7 +371,10 @@ namespace FinanceSystem
                 Console.WriteLine($"  {patient}");
             }
 
-            Console.WriteLine($"\nTotal patients: {patients.Count}\n");
+            Console.WriteLine($"\nTotal patients: {patients.Count}");
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -336,7 +387,10 @@ namespace FinanceSystem
             Console.Write("Enter Patient ID: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("Invalid Patient ID. Please enter a valid number.\n");
+                Console.WriteLine("Invalid Patient ID. Please enter a valid number.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
@@ -356,7 +410,10 @@ namespace FinanceSystem
 
             if (!int.TryParse(Console.ReadLine(), out int searchType) || searchType < 1 || searchType > 3)
             {
-                Console.WriteLine("Invalid search type. Please enter 1, 2, or 3.\n");
+                Console.WriteLine("Invalid search type. Please enter 1, 2, or 3.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
@@ -398,7 +455,7 @@ namespace FinanceSystem
 
             if (results.Count == 0)
             {
-                Console.WriteLine("No patients found matching the search criteria.\n");
+                Console.WriteLine("No patients found matching the search criteria.");
             }
             else
             {
@@ -407,8 +464,11 @@ namespace FinanceSystem
                 {
                     Console.WriteLine($"  {patient}");
                 }
-                Console.WriteLine();
             }
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -417,6 +477,9 @@ namespace FinanceSystem
         private void ViewSystemSummary()
         {
             PrintSystemSummary();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -429,14 +492,20 @@ namespace FinanceSystem
             Console.Write("Enter Patient ID to remove: ");
             if (!int.TryParse(Console.ReadLine(), out int patientId))
             {
-                Console.WriteLine("Invalid Patient ID. Please enter a valid number.\n");
+                Console.WriteLine("Invalid Patient ID. Please enter a valid number.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
             var patient = _patientRepo.GetById(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine($"Patient with ID {patientId} not found.\n");
+                Console.WriteLine($"Patient with ID {patientId} not found.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
@@ -463,17 +532,21 @@ namespace FinanceSystem
                     // Rebuild prescription map
                     BuildPrescriptionMap();
 
-                    Console.WriteLine($"Successfully removed patient and {prescriptionsRemoved} associated prescription(s).\n");
+                    Console.WriteLine($"Successfully removed patient and {prescriptionsRemoved} associated prescription(s).");
                 }
                 else
                 {
-                    Console.WriteLine("Failed to remove patient.\n");
+                    Console.WriteLine("Failed to remove patient.");
                 }
             }
             else
             {
-                Console.WriteLine("Patient removal cancelled.\n");
+                Console.WriteLine("Patient removal cancelled.");
             }
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -486,14 +559,20 @@ namespace FinanceSystem
             Console.Write("Enter Prescription ID to remove: ");
             if (!int.TryParse(Console.ReadLine(), out int prescriptionId))
             {
-                Console.WriteLine("Invalid Prescription ID. Please enter a valid number.\n");
+                Console.WriteLine("Invalid Prescription ID. Please enter a valid number.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
             var prescription = _prescriptionRepo.GetById(p => p.Id == prescriptionId);
             if (prescription == null)
             {
-                Console.WriteLine($"Prescription with ID {prescriptionId} not found.\n");
+                Console.WriteLine($"Prescription with ID {prescriptionId} not found.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
@@ -508,17 +587,21 @@ namespace FinanceSystem
                 {
                     // Rebuild prescription map
                     BuildPrescriptionMap();
-                    Console.WriteLine("Successfully removed prescription.\n");
+                    Console.WriteLine("Successfully removed prescription.");
                 }
                 else
                 {
-                    Console.WriteLine("Failed to remove prescription.\n");
+                    Console.WriteLine("Failed to remove prescription.");
                 }
             }
             else
             {
-                Console.WriteLine("Prescription removal cancelled.\n");
+                Console.WriteLine("Prescription removal cancelled.");
             }
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -546,34 +629,43 @@ namespace FinanceSystem
         /// <param name="patientId">The ID of the patient</param>
         public void PrintPrescriptionsForPatient(int patientId)
         {
-            Console.WriteLine($"=== Prescriptions for Patient ID: {patientId} ===\n");
+            Console.WriteLine($"=== Prescriptions for Patient ID: {patientId} ===");
 
             // First, verify the patient exists
             var patient = _patientRepo.GetById(p => p.Id == patientId);
             if (patient == null)
             {
-                Console.WriteLine($"Patient with ID {patientId} not found in the system.\n");
+                Console.WriteLine($"Patient with ID {patientId} not found in the system.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
-            Console.WriteLine($"Patient: {patient}\n");
+            Console.WriteLine($"\nPatient: {patient}");
 
             // Get prescriptions using the map
             var prescriptions = GetPrescriptionsByPatientId(patientId);
 
             if (prescriptions.Count == 0)
             {
-                Console.WriteLine("No prescriptions found for this patient.\n");
+                Console.WriteLine("\nNo prescriptions found for this patient.");
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
                 return;
             }
 
-            Console.WriteLine("Prescriptions:");
+            Console.WriteLine("\nPrescriptions:");
             foreach (var prescription in prescriptions.OrderBy(p => p.DateIssued))
             {
                 Console.WriteLine($"  - {prescription}");
             }
 
-            Console.WriteLine($"\nTotal prescriptions: {prescriptions.Count}\n");
+            Console.WriteLine($"\nTotal prescriptions: {prescriptions.Count}");
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -595,7 +687,7 @@ namespace FinanceSystem
         /// </summary>
         public void PrintSystemSummary()
         {
-            Console.WriteLine("=== Healthcare System Summary ===\n");
+            Console.WriteLine("=== Healthcare System Summary ===");
             Console.WriteLine($"Total Patients: {_patientRepo.Count}");
             Console.WriteLine($"Total Prescriptions: {_prescriptionRepo.Count}");
             Console.WriteLine($"Patients with Prescriptions: {_prescriptionMap.Count}");
