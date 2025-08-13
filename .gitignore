@@ -1,0 +1,21 @@
+# Build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.sln.docstates
+
+# NuGet packages
+packages/
+*.nupkg
+
+# Runtime files
+*.runtimeconfig.json
+*.deps.json
