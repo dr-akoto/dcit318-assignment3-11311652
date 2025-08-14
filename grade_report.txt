@@ -1,0 +1,37 @@
+================================================================================
+                          STUDENT GRADE REPORT
+================================================================================
+Generated on: 2025-08-14 11:41:41
+Total Students: 10
+
+INDIVIDUAL RESULTS:
+--------------------------------------------------------------------------------
+Alice Johnson (ID: 101): Score = 85, Grade = A
+Bob Smith (ID: 102): Score = 92, Grade = A
+Carol Davis (ID: 103): Score = 78, Grade = B
+David Wilson (ID: 104): Score = 67, Grade = C
+Eva Brown (ID: 105): Score = 94, Grade = A
+Frank Miller (ID: 106): Score = 56, Grade = D
+Grace Taylor (ID: 107): Score = 73, Grade = B
+Henry Clark (ID: 108): Score = 88, Grade = A
+Iris Anderson (ID: 109): Score = 45, Grade = F
+Jack Thompson (ID: 110): Score = 91, Grade = A
+
+GRADE DISTRIBUTION:
+--------------------------------------------------------------------------------
+Grade A:   5 students ( 50.0%)
+Grade B:   2 students ( 20.0%)
+Grade C:   1 students ( 10.0%)
+Grade D:   1 students ( 10.0%)
+Grade F:   1 students ( 10.0%)
+
+CLASS STATISTICS:
+--------------------------------------------------------------------------------
+Class Average: 76.90
+Highest Score: 94 (Eva Brown)
+Lowest Score: 45
+Pass Rate (≥50): 90.0%
+
+================================================================================
+                              END OF REPORT
+================================================================================

@@ -51,6 +51,10 @@ namespace FinanceSystem
                             continueProcessing = false;
                             continue;
 
+                        case 99: // Return to main menu
+                            Console.WriteLine("Returning to main menu...");
+                            return; // Exit the Run method to return to main menu
+
                         case 1: // Make Transaction (Withdrawal)
                             ProcessWithdrawalTransaction(savingsAccount, mobileMoneyProcessor, bankTransferProcessor, cryptoWalletProcessor, ref transactionId);
                             break;
@@ -298,21 +302,31 @@ namespace FinanceSystem
         {
             while (true)
             {
-                Console.WriteLine("Select operation:");
-                Console.WriteLine("1. Make a Transaction (Withdrawal)");
-                Console.WriteLine("2. Deposit Money");
-                Console.WriteLine("3. Check Balance");
-                Console.WriteLine("4. View Transaction History");
-                Console.WriteLine("0. Exit");
-                Console.Write("Enter your choice (0-4): ");
+                Console.WriteLine("╔══════════════════════════════════════════════════════════════╗");
+                Console.WriteLine("║                Finance Management System                     ║");
+                Console.WriteLine("╠══════════════════════════════════════════════════════════════╣");
+                Console.WriteLine("║  1. Make a Transaction (Withdrawal)                         ║");
+                Console.WriteLine("║  2. Deposit Money                                            ║");
+                Console.WriteLine("║  3. Check Balance                                            ║");
+                Console.WriteLine("║  4. View Transaction History                                 ║");
+                Console.WriteLine("║  0. Exit                                                     ║");
+                Console.WriteLine("║  end. Return to Main Menu                                    ║");
+                Console.WriteLine("╚══════════════════════════════════════════════════════════════╝");
+                Console.Write("Enter your choice (0-4, or 'end'): ");
 
-                var input = Console.ReadLine();
+                var input = Console.ReadLine()?.Trim().ToLower() ?? "";
+
+                if (input == "end")
+                {
+                    return 99; // Special code for returning to main menu
+                }
+
                 if (int.TryParse(input, out int choice) && choice >= 0 && choice <= 4)
                 {
                     return choice;
                 }
 
-                Console.WriteLine("Invalid choice. Please enter a number between 0 and 4.\n");
+                Console.WriteLine("❌ Invalid choice. Please enter a number between 0 and 4, or 'end' to return to main menu.\n");
             }
         }
 
@@ -488,26 +502,35 @@ namespace FinanceSystem
         /// <param name="account">The account to display information for</param>
         private void DisplayTransactionSummary(SavingsAccount account)
         {
-            Console.WriteLine("=== Final Transaction Summary ===");
-            Console.WriteLine($"Account: {account.AccountNumber}");
-            Console.WriteLine($"Final Balance: ${account.Balance:F2}");
-            Console.WriteLine($"Total Transactions Processed: {_transactions.Count}");
+            Console.WriteLine("\n" + "═".PadRight(60, '═'));
+            Console.WriteLine("                 TRANSACTION SUMMARY");
+            Console.WriteLine("═".PadRight(60, '═'));
+
+            Console.WriteLine($"║ Account Number: {account.AccountNumber,-40} ║");
+            Console.WriteLine($"║ Final Balance: ${account.Balance,-41:F2} ║");
+            Console.WriteLine($"║ Total Transactions: {_transactions.Count,-36} ║");
 
             if (_transactions.Count > 0)
             {
                 decimal totalSpent = _transactions.Sum(t => t.Amount);
-                Console.WriteLine($"Total Amount Spent: ${totalSpent:F2}");
+                Console.WriteLine($"║ Total Amount Spent: ${totalSpent,-35:F2} ║");
+                Console.WriteLine("╠" + "═".PadRight(58, '═') + "╣");
+                Console.WriteLine("║                    TRANSACTION DETAILS                    ║");
+                Console.WriteLine("╠" + "═".PadRight(58, '═') + "╣");
+                Console.WriteLine($"║ {"ID",-4} {"Date",-17} {"Amount",-10} {"Category",-20} ║");
+                Console.WriteLine("╠" + "─".PadRight(58, '─') + "╣");
 
-                Console.WriteLine("\nTransaction Details:");
                 foreach (var transaction in _transactions)
                 {
-                    Console.WriteLine($"  ID: {transaction.Id}, Date: {transaction.Date:yyyy-MM-dd HH:mm}, " +
-                                    $"Amount: ${transaction.Amount:F2}, Category: {transaction.Category}");
+                    Console.WriteLine($"║ {transaction.Id,-4} {transaction.Date:yyyy-MM-dd HH:mm,-17} " +
+                                    $"${transaction.Amount,-9:F2} {transaction.Category,-20} ║");
                 }
+                Console.WriteLine("╚" + "═".PadRight(58, '═') + "╝");
             }
             else
             {
-                Console.WriteLine("No transactions were processed.");
+                Console.WriteLine("║                  No transactions processed                 ║");
+                Console.WriteLine("╚" + "═".PadRight(58, '═') + "╝");
             }
             Console.WriteLine();
         }

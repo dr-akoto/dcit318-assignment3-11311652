@@ -3,63 +3,67 @@ using FinanceSystem;
 namespace FinanceSystem
 {
     /// <summary>
-    /// Main entry point for the Finance Management System, Healthcare System, and Warehouse Management System
+    /// Main entry point for all management systems
     /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            try
+            bool continueRunning = true;
+
+            while (continueRunning)
             {
-                Console.WriteLine("=== SYSTEM SELECTION MENU ===");
-                Console.WriteLine("1. Finance Management System");
-                Console.WriteLine("2. Healthcare Management System");
-                Console.WriteLine("3. Warehouse Inventory Management System");
-                Console.WriteLine("4. Run All Systems");
-                Console.WriteLine("0. Exit");
-                Console.Write("Select an option (0-4): ");
-
-                var choice = Console.ReadLine();
-
-                switch (choice)
+                try
                 {
-                    case "1":
-                        RunFinanceSystem();
-                        break;
-                    case "2":
-                        RunHealthcareSystem();
-                        break;
-                    case "3":
-                        RunWarehouseSystem();
-                        break;
-                    case "4":
-                        RunHealthcareSystem();
-                        Console.WriteLine("\n" + new string('=', 50));
-                        Console.WriteLine("SWITCHING TO FINANCE SYSTEM");
-                        Console.WriteLine(new string('=', 50) + "\n");
-                        RunFinanceSystem();
-                        Console.WriteLine("\n" + new string('=', 50));
-                        Console.WriteLine("SWITCHING TO WAREHOUSE SYSTEM");
-                        Console.WriteLine(new string('=', 50) + "\n");
-                        RunWarehouseSystem();
-                        break;
-                    case "0":
-                        Console.WriteLine("Goodbye!");
-                        return;
-                    default:
-                        Console.WriteLine("Invalid choice. Running Healthcare System as default.");
-                        RunHealthcareSystem();
-                        break;
-                }
+                    Console.Clear();
+                    Console.WriteLine("╔══════════════════════════════════════════════════════════════╗");
+                    Console.WriteLine("║                     MAIN SYSTEM MENU                        ║");
+                    Console.WriteLine("╠══════════════════════════════════════════════════════════════╣");
+                    Console.WriteLine("║  1. Finance Management System                                ║");
+                    Console.WriteLine("║  2. Healthcare Management System                             ║");
+                    Console.WriteLine("║  3. Warehouse Inventory Management System                    ║");
+                    Console.WriteLine("║  4. Student Grading System                                   ║");
+                    Console.WriteLine("║  5. Run All Systems                                          ║");
+                    Console.WriteLine("║  0. Exit                                                     ║");
+                    Console.WriteLine("╚══════════════════════════════════════════════════════════════╝");
+                    Console.Write("Select an option (0-5): ");
 
-                Console.WriteLine("\nPress any key to exit...");
-                Console.ReadKey();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
+                    var choice = Console.ReadLine()?.Trim() ?? "";
+
+                    switch (choice)
+                    {
+                        case "1":
+                            RunFinanceSystem();
+                            break;
+                        case "2":
+                            RunHealthcareSystem();
+                            break;
+                        case "3":
+                            RunWarehouseSystem();
+                            break;
+                        case "4":
+                            RunGradingSystem();
+                            break;
+                        case "5":
+                            RunAllSystems();
+                            break;
+                        case "0":
+                            Console.WriteLine("👋 Goodbye! Thank you for using our management systems.");
+                            continueRunning = false;
+                            break;
+                        default:
+                            Console.WriteLine("❌ Invalid choice. Please enter a number between 0 and 5.");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"❌ An error occurred: {ex.Message}");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                }
             }
         }
 
@@ -106,6 +110,41 @@ namespace FinanceSystem
 
             // Run the interactive warehouse system
             warehouseManager.Run();
+        }
+
+        /// <summary>
+        /// Runs the Student Grading System
+        /// </summary>
+        static void RunGradingSystem()
+        {
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("STARTING STUDENT GRADING SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+
+            var gradingApp = new GradingSystemApp();
+            gradingApp.Run();
+        }
+
+        /// <summary>
+        /// Runs all systems sequentially
+        /// </summary>
+        static void RunAllSystems()
+        {
+            Console.WriteLine("🚀 Running all management systems...\n");
+
+            RunHealthcareSystem();
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("SWITCHING TO FINANCE SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+            RunFinanceSystem();
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("SWITCHING TO WAREHOUSE SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+            RunWarehouseSystem();
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("SWITCHING TO GRADING SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+            RunGradingSystem();
         }
     }
 }

@@ -61,6 +61,11 @@ namespace FinanceSystem
                             Console.WriteLine("Thank you for using the Healthcare Management System!");
                             break;
 
+                        case 99: // Return to main menu
+                            continueProcessing = false;
+                            Console.WriteLine("Returning to main menu...");
+                            break;
+
                         case 1:
                             AddNewPatient();
                             break;
@@ -148,26 +153,34 @@ namespace FinanceSystem
         /// <returns>The selected operation type</returns>
         private int GetOperationType()
         {
-            Console.WriteLine("Healthcare Management System - Select an option:");
-            Console.WriteLine("1. Add New Patient");
-            Console.WriteLine("2. Add New Prescription");
-            Console.WriteLine("3. View All Patients");
-            Console.WriteLine("4. View Patient Prescriptions");
-            Console.WriteLine("5. Search Patients");
-            Console.WriteLine("6. View System Summary");
-            Console.WriteLine("7. Remove Patient");
-            Console.WriteLine("8. Remove Prescription");
-            Console.WriteLine("0. Exit");
-            Console.Write("Enter your choice (0-8): ");
-
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 0 && choice <= 8)
+            while (true)
             {
-                Console.WriteLine();
-                return choice;
-            }
+                Console.WriteLine("╔══════════════════════════════════════════════════════════════╗");
+                Console.WriteLine("║                Healthcare Management System                  ║");
+                Console.WriteLine("╠══════════════════════════════════════════════════════════════╣");
+                Console.WriteLine("║  1. Add New Patient           │  5. Search Patients          ║");
+                Console.WriteLine("║  2. Add New Prescription      │  6. View System Summary      ║");
+                Console.WriteLine("║  3. View All Patients         │  7. Remove Patient           ║");
+                Console.WriteLine("║  4. View Patient Prescriptions│  8. Remove Prescription      ║");
+                Console.WriteLine("║  0. Exit                      │  end. Return to Main Menu    ║");
+                Console.WriteLine("╚══════════════════════════════════════════════════════════════╝");
+                Console.Write("Enter your choice (0-8, or 'end'): ");
 
-            Console.WriteLine("Invalid input. Please enter a number between 0 and 8.\n");
-            return -1;
+                string input = Console.ReadLine()?.Trim().ToLower() ?? "";
+
+                if (input == "end")
+                {
+                    return 99; // Special code for returning to main menu
+                }
+
+                if (int.TryParse(input, out int choice) && choice >= 0 && choice <= 8)
+                {
+                    Console.WriteLine();
+                    return choice;
+                }
+
+                Console.WriteLine("❌ Invalid input. Please enter a number between 0 and 8, or 'end' to return to main menu.\n");
+            }
         }
 
         /// <summary>
@@ -349,7 +362,7 @@ namespace FinanceSystem
         }
 
         /// <summary>
-        /// Views all patients in the system
+        /// Views all patients in the system with table formatting
         /// </summary>
         private void ViewAllPatients()
         {
@@ -366,11 +379,7 @@ namespace FinanceSystem
                 return;
             }
 
-            foreach (var patient in patients.OrderBy(p => p.Id))
-            {
-                Console.WriteLine($"  {patient}");
-            }
-
+            PrintPatientsTable(patients, "ALL PATIENTS");
             Console.WriteLine($"\nTotal patients: {patients.Count}");
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
@@ -395,80 +404,6 @@ namespace FinanceSystem
             }
 
             PrintPrescriptionsForPatient(patientId);
-        }
-
-        /// <summary>
-        /// Searches for patients by name or other criteria
-        /// </summary>
-        private void SearchPatients()
-        {
-            Console.WriteLine("=== Search Patients ===");
-            Console.WriteLine("1. Search by Name");
-            Console.WriteLine("2. Search by Age Range");
-            Console.WriteLine("3. Search by Gender");
-            Console.Write("Select search type (1-3): ");
-
-            if (!int.TryParse(Console.ReadLine(), out int searchType) || searchType < 1 || searchType > 3)
-            {
-                Console.WriteLine("Invalid search type. Please enter 1, 2, or 3.");
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
-                Console.WriteLine();
-                return;
-            }
-
-            var allPatients = _patientRepo.GetAll();
-            List<Patient> results = new List<Patient>();
-
-            switch (searchType)
-            {
-                case 1:
-                    Console.Write("Enter name to search for: ");
-                    string searchName = Console.ReadLine()?.Trim() ?? "";
-                    if (!string.IsNullOrEmpty(searchName))
-                    {
-                        results = allPatients.Where(p => p.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
-                    }
-                    break;
-
-                case 2:
-                    Console.Write("Enter minimum age: ");
-                    if (int.TryParse(Console.ReadLine(), out int minAge))
-                    {
-                        Console.Write("Enter maximum age: ");
-                        if (int.TryParse(Console.ReadLine(), out int maxAge))
-                        {
-                            results = allPatients.Where(p => p.Age >= minAge && p.Age <= maxAge).ToList();
-                        }
-                    }
-                    break;
-
-                case 3:
-                    Console.Write("Enter gender to search for: ");
-                    string searchGender = Console.ReadLine()?.Trim() ?? "";
-                    if (!string.IsNullOrEmpty(searchGender))
-                    {
-                        results = allPatients.Where(p => p.Gender.Equals(searchGender, StringComparison.OrdinalIgnoreCase)).ToList();
-                    }
-                    break;
-            }
-
-            if (results.Count == 0)
-            {
-                Console.WriteLine("No patients found matching the search criteria.");
-            }
-            else
-            {
-                Console.WriteLine($"\nSearch Results ({results.Count} patient(s) found):");
-                foreach (var patient in results.OrderBy(p => p.Id))
-                {
-                    Console.WriteLine($"  {patient}");
-                }
-            }
-
-            Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey();
-            Console.WriteLine();
         }
 
         /// <summary>
@@ -642,7 +577,8 @@ namespace FinanceSystem
                 return;
             }
 
-            Console.WriteLine($"\nPatient: {patient}");
+            // Show patient info in table format
+            PrintPatientsTable(new List<Patient> { patient }, "PATIENT INFORMATION");
 
             // Get prescriptions using the map
             var prescriptions = GetPrescriptionsByPatientId(patientId);
@@ -656,12 +592,7 @@ namespace FinanceSystem
                 return;
             }
 
-            Console.WriteLine("\nPrescriptions:");
-            foreach (var prescription in prescriptions.OrderBy(p => p.DateIssued))
-            {
-                Console.WriteLine($"  - {prescription}");
-            }
-
+            PrintPrescriptionsTable(prescriptions, $"PRESCRIPTIONS FOR {patient.Name.ToUpper()}");
             Console.WriteLine($"\nTotal prescriptions: {prescriptions.Count}");
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
@@ -726,6 +657,157 @@ namespace FinanceSystem
             }
 
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Prints patients in a formatted table
+        /// </summary>
+        private void PrintPatientsTable(List<Patient> patients, string title)
+        {
+            Console.WriteLine($"\n╔══════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine($"║{title.PadLeft((80 + title.Length) / 2).PadRight(78)}║");
+            Console.WriteLine("╠════════════════════════════════════════════════════════════════════════════════╣");
+            Console.WriteLine("║ ID   │ Name                     │ Age  │ Gender                              ║");
+            Console.WriteLine("╠════════════════════════════════════════════════════════════════════════════════╣");
+
+            foreach (var patient in patients.OrderBy(p => p.Id))
+            {
+                Console.WriteLine($"║ {patient.Id,-4} │ {patient.Name,-24} │ {patient.Age,-4} │ {patient.Gender,-35} ║");
+            }
+
+            Console.WriteLine("╚════════════════════════════════════════════════════════════════════════════════╝");
+        }
+
+        /// <summary>
+        /// Prints prescriptions in a formatted table
+        /// </summary>
+        private void PrintPrescriptionsTable(List<Prescription> prescriptions, string title)
+        {
+            Console.WriteLine($"\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine($"║{title.PadLeft((100 + title.Length) / 2).PadRight(98)}║");
+            Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════╣");
+            Console.WriteLine("║ ID   │ Patient ID │ Medication Name          │ Date Issued                                 ║");
+            Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════╣");
+
+            foreach (var prescription in prescriptions.OrderBy(p => p.DateIssued))
+            {
+                Console.WriteLine($"║ {prescription.Id,-4} │ {prescription.PatientId,-10} │ {prescription.MedicationName,-24} │ {prescription.DateIssued:yyyy-MM-dd HH:mm}                        ║");
+            }
+
+            Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        }
+
+        /// <summary>
+        /// Enhanced search patients method with table formatting
+        /// </summary>
+        private void SearchPatients()
+        {
+            Console.WriteLine("=== Search Patients ===");
+
+            while (true)
+            {
+                Console.WriteLine("1. Search by Name");
+                Console.WriteLine("2. Search by Age Range");
+                Console.WriteLine("3. Search by Gender");
+                Console.Write("Select search type (1-3, or 'end' to return): ");
+
+                string input = Console.ReadLine()?.Trim().ToLower() ?? "";
+
+                if (input == "end")
+                {
+                    return;
+                }
+
+                if (!int.TryParse(input, out int searchType) || searchType < 1 || searchType > 3)
+                {
+                    Console.WriteLine("❌ Invalid search type. Please enter 1, 2, or 3.\n");
+                    continue;
+                }
+
+                var allPatients = _patientRepo.GetAll();
+                List<Patient> results = new List<Patient>();
+
+                switch (searchType)
+                {
+                    case 1:
+                        string searchName = GetValidStringInput("Enter name to search for: ", "Name");
+                        results = allPatients.Where(p => p.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
+                        break;
+
+                    case 2:
+                        int minAge = GetValidPositiveInteger("Enter minimum age: ");
+                        int maxAge = GetValidPositiveInteger("Enter maximum age: ");
+                        results = allPatients.Where(p => p.Age >= minAge && p.Age <= maxAge).ToList();
+                        break;
+
+                    case 3:
+                        string searchGender = GetValidStringInput("Enter gender to search for: ", "Gender");
+                        results = allPatients.Where(p => p.Gender.Equals(searchGender, StringComparison.OrdinalIgnoreCase)).ToList();
+                        break;
+                }
+
+                if (results.Count == 0)
+                {
+                    Console.WriteLine("No patients found matching the search criteria.");
+                }
+                else
+                {
+                    PrintPatientsTable(results, $"SEARCH RESULTS ({results.Count} found)");
+                }
+
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Gets a valid non-empty string input with retry logic
+        /// </summary>
+        private string GetValidStringInput(string prompt, string fieldName)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine()?.Trim() ?? "";
+
+                if (input.ToLower() == "end")
+                {
+                    return null;
+                }
+
+                if (!string.IsNullOrEmpty(input))
+                {
+                    return input;
+                }
+
+                Console.WriteLine($"❌ {fieldName} cannot be empty. Please enter a valid {fieldName.ToLower()} or 'end' to cancel: ");
+            }
+        }
+
+        /// <summary>
+        /// Gets a valid positive integer with retry logic
+        /// </summary>
+        private int GetValidPositiveInteger(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine()?.Trim() ?? "";
+
+                if (input.ToLower() == "end")
+                {
+                    return -1;
+                }
+
+                if (int.TryParse(input, out int value) && value >= 0)
+                {
+                    return value;
+                }
+
+                Console.WriteLine("❌ Invalid input. Please enter a non-negative number or 'end' to cancel: ");
+            }
         }
     }
 }
