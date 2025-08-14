@@ -1,0 +1,46 @@
+using System;
+
+public class InventoryApp
+{
+    private readonly InventoryLogger<InventoryItem> _logger;
+
+    public InventoryApp()
+    {
+        _logger = new InventoryLogger<InventoryItem>("inventory_data.json");
+    }
+
+    public void SeedSampleData()
+    {
+        _logger.Add(new InventoryItem(1, "Laptop", 10, DateTime.Now));
+        _logger.Add(new InventoryItem(2, "Mouse", 20, DateTime.Now));
+        _logger.Add(new InventoryItem(3, "Keyboard", 15, DateTime.Now));
+        _logger.Add(new InventoryItem(4, "Monitor", 8, DateTime.Now));
+        _logger.Add(new InventoryItem(5, "Headphones", 25, DateTime.Now));
+    }
+
+    public void SaveData()
+    {
+        _logger.SaveToFile();
+        Console.WriteLine("Data saved to file successfully.");
+    }
+
+    public void LoadData()
+    {
+        _logger.LoadFromFile();
+        Console.WriteLine("Data loaded from file successfully.");
+    }
+
+    public void PrintAllItems()
+    {
+        Console.WriteLine("\nCurrent Inventory Items:");
+        Console.WriteLine("------------------------");
+        foreach (var item in _logger.GetAll())
+        {
+            Console.WriteLine($"ID: {item.Id}");
+            Console.WriteLine($"Name: {item.Name}");
+            Console.WriteLine($"Quantity: {item.Quantity}");
+            Console.WriteLine($"Date Added: {item.DateAdded}");
+            Console.WriteLine("------------------------");
+        }
+    }
+}

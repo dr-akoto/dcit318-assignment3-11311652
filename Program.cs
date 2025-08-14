@@ -23,10 +23,11 @@ namespace FinanceSystem
                     Console.WriteLine("║  2. Healthcare Management System                             ║");
                     Console.WriteLine("║  3. Warehouse Inventory Management System                    ║");
                     Console.WriteLine("║  4. Student Grading System                                   ║");
-                    Console.WriteLine("║  5. Run All Systems                                          ║");
+                    Console.WriteLine("║  5. Inventory Records System                                 ║");
+                    Console.WriteLine("║  6. Run All Systems                                          ║");
                     Console.WriteLine("║  0. Exit                                                     ║");
                     Console.WriteLine("╚══════════════════════════════════════════════════════════════╝");
-                    Console.Write("Select an option (0-5): ");
+                    Console.Write("Select an option (0-6): ");
 
                     var choice = Console.ReadLine()?.Trim() ?? "";
 
@@ -45,6 +46,9 @@ namespace FinanceSystem
                             RunGradingSystem();
                             break;
                         case "5":
+                            RunInventoryRecordSystem();
+                            break;
+                        case "6":
                             RunAllSystems();
                             break;
                         case "0":
@@ -52,7 +56,7 @@ namespace FinanceSystem
                             continueRunning = false;
                             break;
                         default:
-                            Console.WriteLine("❌ Invalid choice. Please enter a number between 0 and 5.");
+                            Console.WriteLine("❌ Invalid choice. Please enter a number between 0 and 6.");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadKey();
                             break;
@@ -145,6 +149,25 @@ namespace FinanceSystem
             Console.WriteLine("SWITCHING TO GRADING SYSTEM");
             Console.WriteLine(new string('=', 50) + "\n");
             RunGradingSystem();
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("SWITCHING TO INVENTORY RECORDS SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+            RunInventoryRecordSystem();
+        }
+
+        /// <summary>
+        /// Runs the Inventory Records System
+        /// </summary>
+        static void RunInventoryRecordSystem()
+        {
+            Console.WriteLine("\n" + new string('=', 50));
+            Console.WriteLine("STARTING INVENTORY RECORDS SYSTEM");
+            Console.WriteLine(new string('=', 50) + "\n");
+
+            InventoryRecordSystem.RunInventorySystem();
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
         }
     }
 }
