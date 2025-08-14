@@ -9,12 +9,14 @@
 4.  **Grading System**: Student records and grade processing
 5.  **Inventory Records System**: Generic inventory tracking with JSON persistence
 6.  ## Core Features
-7.  #### Banking System- Multi-processor transaction handling (Mobile Money, Bank Transfer, Crypto)- Account management with validation- Transaction history with category-based reporting- Immutable transaction records for data integrity
-8.  #### Healthcare System- Patient record management- Prescription tracking with validation- Medical history reporting- Appointment scheduling### Warehouse System- Multi-type inventory management- Electronic and grocery item specialization- Inventory search and filtering- Stock level monitoring
-9.  ### Grading System- Student record management- Grade calculation with statistical analysis- Performance reporting- Data persistence with file I/O
-10.  #### Inventory Records System- Generic inventory tracking with type constraints- JSON-based data persistence- CRUD operations for inventory items- Audit logging
-11.  ## Technical Highlights-
-12.   **Object-Oriented Design
+7.  ##### Banking System- Multi-processor transaction handling (Mobile Money, Bank Transfer, Crypto)- Account management with validation- Transaction history with category-based reporting- Immutable transaction records for data integrity
+8.  
+9.  #### Healthcare System- Patient record management- Prescription tracking with validation- Medical history reporting- Appointment scheduling
+10.#### Warehouse System- Multi-type inventory management- Electronic and grocery item specialization- Inventory search and filtering- Stock level monitoring
+12.  #### Grading System- Student record management- Grade calculation with statistical analysis- Performance reporting- Data persistence with file I/O
+13.  ##### Inventory Records System- Generic inventory tracking with type constraints- JSON-based data persistence- CRUD operations for inventory items- Audit logging
+14.  ## Technical Highlights-
+15.   **Object-Oriented Design
 13.**: Inheritance, polymorphism, encapsulation-
  **Modern C# Features
 **: Records, interfaces, generics, LINQ, nullable reference types-
