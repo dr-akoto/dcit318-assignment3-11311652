@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Interactive warehouse manager with enhanced validation and table formatting
@@ -150,7 +150,7 @@ namespace FinanceSystem
         private int GetValidId<T>(InventoryRepository<T> repo, string itemType) where T : IInventoryItem
         {
             Console.Write($"Enter {itemType} ID: ");
-            
+
             while (true)
             {
                 if (int.TryParse(Console.ReadLine(), out int id))
@@ -170,7 +170,7 @@ namespace FinanceSystem
                         return id;
                     }
                 }
-                
+
                 Console.Write("❌ Invalid ID. Please enter a valid number: ");
             }
         }
@@ -181,7 +181,7 @@ namespace FinanceSystem
         private int GetValidExistingId<T>(InventoryRepository<T> repo, string itemType) where T : IInventoryItem
         {
             Console.Write($"Enter {itemType} ID: ");
-            
+
             while (true)
             {
                 if (int.TryParse(Console.ReadLine(), out int id))
@@ -199,7 +199,7 @@ namespace FinanceSystem
                         continue;
                     }
                 }
-                
+
                 Console.Write("❌ Invalid ID. Please enter a valid number: ");
             }
         }
@@ -210,7 +210,7 @@ namespace FinanceSystem
         private string GetValidStringInput(string prompt, string fieldName)
         {
             Console.Write(prompt);
-            
+
             while (true)
             {
                 string input = Console.ReadLine()?.Trim() ?? "";
@@ -218,7 +218,7 @@ namespace FinanceSystem
                 {
                     return input;
                 }
-                
+
                 Console.Write($"❌ {fieldName} cannot be empty. Please enter a valid {fieldName.ToLower()}: ");
             }
         }
@@ -229,14 +229,14 @@ namespace FinanceSystem
         private int GetValidPositiveInteger(string prompt)
         {
             Console.Write(prompt);
-            
+
             while (true)
             {
                 if (int.TryParse(Console.ReadLine(), out int value) && value >= 0)
                 {
                     return value;
                 }
-                
+
                 Console.Write("❌ Invalid input. Please enter a non-negative number: ");
             }
         }
@@ -247,21 +247,21 @@ namespace FinanceSystem
         private DateTime GetValidDate(string prompt)
         {
             Console.Write(prompt);
-            
+
             while (true)
             {
                 string input = Console.ReadLine()?.Trim() ?? "";
-                
+
                 if (string.IsNullOrEmpty(input))
                 {
                     return DateTime.Now.AddDays(30); // Default to 30 days from now
                 }
-                
+
                 if (DateTime.TryParse(input, out DateTime date))
                 {
                     return date;
                 }
-                
+
                 Console.Write("❌ Invalid date format. Please enter a valid date (YYYY-MM-DD) or press Enter for default: ");
             }
         }
@@ -289,7 +289,7 @@ namespace FinanceSystem
 
                 Console.WriteLine("\n✓ SUCCESS: Electronic item added successfully!");
                 PrintElectronicItemTable(new List<ElectronicItem> { newItem }, "ITEM ADDED");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -325,7 +325,7 @@ namespace FinanceSystem
 
                 Console.WriteLine("\n✓ SUCCESS: Grocery item added successfully!");
                 PrintGroceryItemTable(new List<GroceryItem> { newItem }, "ITEM ADDED");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -400,7 +400,7 @@ namespace FinanceSystem
             {
                 int id = GetValidExistingId(_electronics, "Electronic Item");
                 var item = _electronics.GetItemById(id);
-                
+
                 Console.WriteLine($"\nCurrent item: {item.Name} (ID: {id}) - Current Quantity: {item.Quantity}");
                 int newQuantity = GetValidPositiveInteger("Enter new quantity: ");
 
@@ -414,7 +414,7 @@ namespace FinanceSystem
                 Console.WriteLine($"│ Item: {item.Name,-20} (ID: {id,-10})                    │");
                 Console.WriteLine($"│ Old Quantity: {oldQuantity,-15} → New Quantity: {newQuantity,-10}    │");
                 Console.WriteLine("└─────────────────────────────────────────────────────────────────┘");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -439,7 +439,7 @@ namespace FinanceSystem
             {
                 int id = GetValidExistingId(_groceries, "Grocery Item");
                 var item = _groceries.GetItemById(id);
-                
+
                 Console.WriteLine($"\nCurrent item: {item.Name} (ID: {id}) - Current Quantity: {item.Quantity}");
                 int newQuantity = GetValidPositiveInteger("Enter new quantity: ");
 
@@ -453,7 +453,7 @@ namespace FinanceSystem
                 Console.WriteLine($"│ Item: {item.Name,-20} (ID: {id,-10})                    │");
                 Console.WriteLine($"│ Old Quantity: {oldQuantity,-15} → New Quantity: {newQuantity,-10}    │");
                 Console.WriteLine("└─────────────────────────────────────────────────────────────────┘");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -478,11 +478,11 @@ namespace FinanceSystem
             {
                 int id = GetValidExistingId(_electronics, "Electronic Item");
                 var item = _electronics.GetItemById(id);
-                
+
                 Console.WriteLine($"\nItem to remove: {item.Name} (ID: {id})");
                 Console.Write("Are you sure you want to remove this item? (y/N): ");
                 string confirmation = Console.ReadLine()?.Trim().ToLower() ?? "";
-                
+
                 if (confirmation == "y" || confirmation == "yes")
                 {
                     _electronics.RemoveItem(id);
@@ -498,7 +498,7 @@ namespace FinanceSystem
                 {
                     Console.WriteLine("\nOperation cancelled.");
                 }
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -523,11 +523,11 @@ namespace FinanceSystem
             {
                 int id = GetValidExistingId(_groceries, "Grocery Item");
                 var item = _groceries.GetItemById(id);
-                
+
                 Console.WriteLine($"\nItem to remove: {item.Name} (ID: {id})");
                 Console.Write("Are you sure you want to remove this item? (y/N): ");
                 string confirmation = Console.ReadLine()?.Trim().ToLower() ?? "";
-                
+
                 if (confirmation == "y" || confirmation == "yes")
                 {
                     _groceries.RemoveItem(id);
@@ -543,7 +543,7 @@ namespace FinanceSystem
                 {
                     Console.WriteLine("\nOperation cancelled.");
                 }
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -571,7 +571,7 @@ namespace FinanceSystem
 
                 Console.WriteLine("\n✓ Item found:");
                 PrintElectronicItemTable(new List<ElectronicItem> { item }, "SEARCH RESULT");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -599,7 +599,7 @@ namespace FinanceSystem
 
                 Console.WriteLine("\n✓ Item found:");
                 PrintGroceryItemTable(new List<GroceryItem> { item }, "SEARCH RESULT");
-                
+
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine();

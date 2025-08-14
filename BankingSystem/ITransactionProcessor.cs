@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.BankingSystem
 {
     /// <summary>
     /// Interface defining payment behavior for transaction processing

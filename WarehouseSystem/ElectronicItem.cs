@@ -1,6 +1,6 @@
 using System;
 
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Represents an electronic item in the warehouse inventory

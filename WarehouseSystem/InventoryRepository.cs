@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FinanceSystem.WarehouseSystem;
 
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Generic repository for managing inventory items with type safety and constraint enforcement
@@ -109,5 +108,21 @@ namespace FinanceSystem
         {
             return _items.ContainsKey(id);
         }
+    }
+
+    // Exception classes needed for the InventoryRepository
+    public class DuplicateItemException : Exception
+    {
+        public DuplicateItemException(string message) : base(message) { }
+    }
+
+    public class ItemNotFoundException : Exception
+    {
+        public ItemNotFoundException(string message) : base(message) { }
+    }
+
+    public class InvalidQuantityException : Exception
+    {
+        public InvalidQuantityException(string message) : base(message) { }
     }
 }

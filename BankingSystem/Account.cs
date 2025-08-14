@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.BankingSystem
 {
     /// <summary>
     /// Base class representing a general financial account

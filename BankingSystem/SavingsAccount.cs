@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.BankingSystem
 {
     /// <summary>
     /// Sealed class representing a specialized savings account

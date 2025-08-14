@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace FinanceSystem
+namespace FinanceSystem.GradingSystem
 {
     /// <summary>
     /// Main application class for the Student Grading System
@@ -181,7 +181,7 @@ namespace FinanceSystem
                 try
                 {
                     // Check if the directory exists, create if it doesn't
-                    string directory = Path.GetDirectoryName(input);
+                    string? directory = Path.GetDirectoryName(input);
                     if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     {
                         Directory.CreateDirectory(directory);

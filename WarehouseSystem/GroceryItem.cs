@@ -1,6 +1,6 @@
 using System;
 
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Represents a grocery item in the warehouse inventory

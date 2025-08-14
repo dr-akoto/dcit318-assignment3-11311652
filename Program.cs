@@ -1,4 +1,8 @@
-using FinanceSystem;
+using FinanceSystem.BankingSystem;
+using FinanceSystem.HealthSystem;
+using FinanceSystem.WarehouseSystem;
+using FinanceSystem.GradingSystem;
+using FinanceSystem.InventoryRecordSystem;
 
 namespace FinanceSystem
 {
@@ -164,7 +168,8 @@ namespace FinanceSystem
             Console.WriteLine("STARTING INVENTORY RECORDS SYSTEM");
             Console.WriteLine(new string('=', 50) + "\n");
 
-            InventoryRecordSystem.RunInventorySystem();
+            var system = new InventoryRecordSystem.InventoryRecordSystem();
+            system.Run();
 
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();

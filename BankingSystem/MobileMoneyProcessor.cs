@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.BankingSystem
 {
     /// <summary>
     /// Concrete implementation for mobile money transaction processing

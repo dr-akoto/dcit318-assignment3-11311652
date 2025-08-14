@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Main warehouse manager that handles both electronic and grocery inventory
@@ -80,7 +80,7 @@ namespace FinanceSystem
         public void PrintAllItems<T>(InventoryRepository<T> repo) where T : IInventoryItem
         {
             var items = repo.GetAllItems();
-            
+
             if (items.Count == 0)
             {
                 Console.WriteLine("No items found in this inventory.");

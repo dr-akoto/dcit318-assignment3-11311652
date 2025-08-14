@@ -1,6 +1,6 @@
 using System;
 
-namespace FinanceSystem
+namespace FinanceSystem.HealthSystem
 {
     /// <summary>
     /// Represents a prescription issued to a patient

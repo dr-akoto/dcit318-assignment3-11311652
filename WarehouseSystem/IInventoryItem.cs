@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.WarehouseSystem
 {
     /// <summary>
     /// Marker interface for all inventory items in the warehouse system

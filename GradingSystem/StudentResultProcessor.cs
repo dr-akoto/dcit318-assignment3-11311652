@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace FinanceSystem
+namespace FinanceSystem.GradingSystem
 {
     /// <summary>
     /// Processes student results from input files and generates reports

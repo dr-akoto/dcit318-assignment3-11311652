@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FinanceSystem
+namespace FinanceSystem.HealthSystem
 {
     /// <summary>
     /// Main healthcare system application that manages patients and prescriptions
@@ -774,7 +774,7 @@ namespace FinanceSystem
 
                 if (input.ToLower() == "end")
                 {
-                    return null;
+                    return "";
                 }
 
                 if (!string.IsNullOrEmpty(input))

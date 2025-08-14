@@ -1,6 +1,6 @@
 using System;
 
-namespace FinanceSystem
+namespace FinanceSystem.HealthSystem
 {
     /// <summary>
     /// Represents a patient in the healthcare system

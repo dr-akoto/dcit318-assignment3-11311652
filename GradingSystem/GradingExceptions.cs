@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.GradingSystem
 {
     /// <summary>
     /// Exception thrown when a score cannot be converted to an integer

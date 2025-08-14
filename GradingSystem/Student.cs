@@ -1,4 +1,4 @@
-namespace FinanceSystem
+namespace FinanceSystem.GradingSystem
 {
     /// <summary>
     /// Represents a student with ID, full name, and score

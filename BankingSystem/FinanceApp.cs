@@ -1,6 +1,7 @@
 using System.Linq;
+using FinanceSystem.BankingSystem;
 
-namespace FinanceSystem
+namespace FinanceSystem.BankingSystem
 {
     /// <summary>
     /// Main application class responsible for coordinating the finance management system
@@ -360,7 +361,7 @@ namespace FinanceSystem
         /// </summary>
         /// <param name="transactionId">The ID for the new transaction</param>
         /// <returns>A new Transaction object or null if input was invalid</returns>
-        private Transaction GetTransactionDetails(int transactionId)
+        private Transaction? GetTransactionDetails(int transactionId)
         {
             try
             {
@@ -373,7 +374,7 @@ namespace FinanceSystem
                 }
 
                 // Get transaction category
-                string category = GetTransactionCategory();
+                string? category = GetTransactionCategory();
                 if (string.IsNullOrWhiteSpace(category))
                 {
                     Console.WriteLine("Transaction cancelled - invalid category.\n");
@@ -414,7 +415,7 @@ namespace FinanceSystem
         /// Gets a valid transaction category from user input
         /// </summary>
         /// <returns>The transaction category</returns>
-        private string GetTransactionCategory()
+        private string? GetTransactionCategory()
         {
             while (true)
             {
@@ -678,7 +679,7 @@ namespace FinanceSystem
             if (amount <= 0) return (false, 0, "");
 
             // Get category
-            string category = GetTransactionCategory();
+            string? category = GetTransactionCategory();
             if (string.IsNullOrEmpty(category)) return (false, 0, "");
 
             string networkName = network switch
@@ -711,7 +712,7 @@ namespace FinanceSystem
             if (amount <= 0) return (false, 0, "");
 
             // Get category
-            string category = GetTransactionCategory();
+            string? category = GetTransactionCategory();
             if (string.IsNullOrEmpty(category)) return (false, 0, "");
 
             bool success = false;
@@ -751,7 +752,7 @@ namespace FinanceSystem
             if (amount <= 0) return (false, 0, "");
 
             // Get category
-            string category = GetTransactionCategory();
+            string? category = GetTransactionCategory();
             if (string.IsNullOrEmpty(category)) return (false, 0, "");
 
             string operationName = operationType == 1 ? "Send" : "Withdraw";
